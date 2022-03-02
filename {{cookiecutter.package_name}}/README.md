@@ -1,2 +1,2 @@
-# {{cookiecutter.package_name}
+# {{cookiecutter.package_name}}
 ### Still a work in progress
