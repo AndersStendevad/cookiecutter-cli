@@ -26,6 +26,14 @@ repos:
     rev: 4.0.1
     hooks:
     -   id: flake8
+  - repo: https://github.com/roy-ht/pre-commit-jupyter
+    rev: v1.2.1
+    hooks:
+      - id: jupyter-notebook-cleanup
+        args:
+          # - --remove-kernel-metadata
+          - --pin-patterns
+          - "[pin];[donotremove]"
 
 default_language_version:
     python: python3.9
