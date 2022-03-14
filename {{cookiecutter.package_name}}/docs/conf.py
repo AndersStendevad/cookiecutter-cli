@@ -17,9 +17,9 @@
 
 # -- Project information -----------------------------------------------------
 
-project = '{{package_name}}'
-copyright = '2022, {{author}}'
-author = '{{author}}'
+project = '{{cookiecutter.package_name}}'
+copyright = '2022, {{cookiecutter.author}}'
+author = '{{cookiecutter.author}}'
 
 # The full version, including alpha/beta/rc tags
 release = '0.0.1'
