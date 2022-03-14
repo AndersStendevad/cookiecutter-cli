@@ -9,6 +9,12 @@ def check_result(result: CompletedProcess, prev_cwd: Path):
     if "ERROR" in result.stdout.decode("utf-8"):
         os.chdir(prev_cwd)
         raise Exception(result.stdout.decode("utf-8"))
+    if "An error has occurred" in result.stdout.decode("utf-8"):
+        os.chdir(prev_cwd)
+        raise Exception(result.stdout.decode("utf-8"))
+    if "WARNING" in result.stdout.decode("utf-8"):
+        os.chdir(prev_cwd)
+        raise Warning(result.stdout.decode("utf-8"))
 
 def test_bake_project(cookies, cookiecutter_dict):
     result = cookies.bake(extra_context=cookiecutter_dict)
@@ -53,6 +59,8 @@ def test_pre_commit_in_baked_project(cookies, cookiecutter_dict):
         shell=True,
         capture_output=True,
     )
+    check_result(result, prev_cwd)
+    result = run("git init --quiet", shell=True, capture_output=True)
     check_result(result, prev_cwd)
     result = run("pre-commit", shell=True, capture_output=True)
     check_result(result, prev_cwd)
