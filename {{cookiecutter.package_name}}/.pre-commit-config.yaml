@@ -31,14 +31,18 @@ repos:
     hooks:
       - id: jupyter-notebook-cleanup
         args:
-          # - --remove-kernel-metadata
           - --pin-patterns
           - "[pin];[donotremove]"
   - repo: https://github.com/econchick/interrogate
     rev: 1.5.0
     hooks:
       - id: interrogate
-        args: [--vv, -i, --fail-under=80, .]
+        exclude: ^(tests/|docs/)
+        args:
+          - -vv
+          - -i
+          - --fail-under=95
+          - --omit-covered-files
 
 default_language_version:
     python: python3.9
