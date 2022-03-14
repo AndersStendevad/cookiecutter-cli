@@ -14,26 +14,10 @@ repos:
     rev: v1.1.13
     hooks:
     -   id: remove-tabs
--   repo: https://github.com/psf/black
-    rev: 22.1.0
-    hooks:
-    -   id: black
 -   repo: https://github.com/asottile/blacken-docs
     rev: v1.12.1
     hooks:
     -   id: blacken-docs
--   repo: https://github.com/PyCQA/flake8
-    rev: 4.0.1
-    hooks:
-    -   id: flake8
--   repo: https://github.com/roy-ht/pre-commit-jupyter
-    rev: v1.2.1
-    hooks:
-      - id: jupyter-notebook-cleanup
-        args:
-          # - --remove-kernel-metadata
-          - --pin-patterns
-          - "[pin];[donotremove]"
 
 default_language_version:
     python: python3.9
