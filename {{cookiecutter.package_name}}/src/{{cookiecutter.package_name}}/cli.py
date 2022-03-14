@@ -1,14 +1,13 @@
 """{{cookiecutter.package_name}} CLI"""
 
+
 import click
+from {{cookiecutter.package_name}} import __version__ as VERSION
 
 
 @click.command()
-@click.argument("name", default="world")
-def {{cookiecutter.package_name}}(name):
-    """Hello World"""
-    click.echo(f"Hello {name}!")
-
-
-if __name__ == "__main__":
-    {{cookiecutter.package_name}}()
+@click.option('--version')
+def {{cookiecutter.package_name}}(version):
+    """The main way to engange with {{cookiecutter.package_name}} is with this cli"""
+    if version:
+        click.echo(f"{VERSION}")
