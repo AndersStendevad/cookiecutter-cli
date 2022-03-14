@@ -7,7 +7,7 @@ def check_result(result: CompletedProcess, prev_cwd: Path):
     if result.stderr:
         os.chdir(prev_cwd)
         raise Exception(result.stderr.decode("utf-8"))
-    if "ERROR" in result.stdout.decode("utf-8"):
+    if "ERROR:" in result.stdout.decode("utf-8"):
         os.chdir(prev_cwd)
         raise Exception(result.stdout.decode("utf-8"))
     if "An error has occurred" in result.stdout.decode("utf-8"):
