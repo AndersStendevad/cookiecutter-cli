@@ -1,7 +1,14 @@
 import os
-import subprocess
+from subprocess import run, CompletedProcess
 from pathlib import Path
 
+def check_result(result: CompletedProcess, prev_cwd: Path):
+    if result.stderr:
+        os.chdir(prev_cwd)
+        raise Exception(result.stderr.decode("utf-8"))
+    if "ERROR" in result.stdout.decode("utf-8"):
+        os.chdir(prev_cwd)
+        raise Exception(result.stdout.decode("utf-8"))
 
 def test_bake_project(cookies, cookiecutter_dict):
     result = cookies.bake(extra_context=cookiecutter_dict)
@@ -13,14 +20,12 @@ def test_pytest_in_baked_project(cookies, cookiecutter_dict):
     path = cookies.bake(extra_context=cookiecutter_dict).project_path
     prev_cwd = Path.cwd()
     os.chdir(path)
-    result = subprocess.run(
+    result = run(
         "pip install --disable-pip-version-check -e .", shell=True, capture_output=True
     )
-    if result.stderr:
-        raise Exception(result.stderr.decode("utf-8"))
-    result = subprocess.run("pytest", shell=True, capture_output=True)
-    if result.stderr:
-        raise Exception(result.stderr.decode("utf-8"))
+    check_result(result, prev_cwd)
+    result = run("pytest", shell=True, capture_output=True)
+    check_result(result, prev_cwd)
     os.chdir(prev_cwd)
 
 
@@ -28,35 +33,29 @@ def test_cli_in_baked_project(cookies, cookiecutter_dict):
     path = cookies.bake(extra_context=cookiecutter_dict).project_path
     prev_cwd = Path.cwd()
     os.chdir(path)
-    result = subprocess.run(
+    result = run(
         "pip install --disable-pip-version-check -e .", shell=True, capture_output=True
     )
-    if result.stderr:
-        raise Exception(result.stderr.decode("utf-8"))
-    result = subprocess.run(
+    check_result(result, prev_cwd)
+    result = run(
         cookiecutter_dict["package_name"], shell=True, capture_output=True
     )
-    if result.stderr:
-        raise Exception(result.stderr.decode("utf-8"))
+    check_result(result, prev_cwd)
     os.chdir(prev_cwd)
 
 
-def test_pre_commit_in_baked_projet(cookies, cookiecutter_dict):
+def test_pre_commit_in_baked_project(cookies, cookiecutter_dict):
     path = cookies.bake(extra_context=cookiecutter_dict).project_path
     prev_cwd = Path.cwd()
     os.chdir(path)
-    result = subprocess.run(
+    result = run(
         "pip install --disable-pip-version-check pre-commit",
         shell=True,
         capture_output=True,
     )
-    if result.stderr:
-        os.chdir(prev_cwd)
-        raise Exception(result.stderr.decode("utf-8"))
-    result = subprocess.run("pre-commit", shell=True, capture_output=True)
-    if result.stderr:
-        os.chdir(prev_cwd)
-        raise Exception(result.stderr.decode("utf-8"))
+    check_result(result, prev_cwd)
+    result = run("pre-commit", shell=True, capture_output=True)
+    check_result(result, prev_cwd)
     os.chdir(prev_cwd)
 
 
@@ -64,14 +63,10 @@ def test_docs(cookies, cookiecutter_dict):
     path = cookies.bake(extra_context=cookiecutter_dict).project_path
     prev_cwd = Path.cwd()
     os.chdir(path)
-    result = subprocess.run(
+    result = run(
         "pip install --disable-pip-version-check tox", shell=True, capture_output=True
     )
-    if result.stderr:
-        os.chdir(prev_cwd)
-        raise Exception(result.stderr.decode("utf-8"))
-    result = subprocess.run("tox -e docs", shell=True, capture_output=True)
-    if result.stderr:
-        os.chdir(prev_cwd)
-        raise Exception(result.stderr.decode("utf-8"))
+    check_result(result, prev_cwd)
+    result = run("tox -e docs", shell=True, capture_output=True)
+    check_result(result, prev_cwd)
     os.chdir(prev_cwd)
