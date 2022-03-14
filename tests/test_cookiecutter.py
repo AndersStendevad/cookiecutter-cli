@@ -10,13 +10,10 @@ def check_result(result: CompletedProcess, prev_cwd: Path):
     if "ERROR:" in result.stdout.decode("utf-8"):
         os.chdir(prev_cwd)
         raise Exception(result.stdout.decode("utf-8"))
-    if "An error has occurred" in result.stdout.decode("utf-8"):
+    if "FAILED" in result.stdout.decode("utf-8"):
         os.chdir(prev_cwd)
         raise Exception(result.stdout.decode("utf-8"))
-    if "Failed" in result.stdout.decode("utf-8"):
-        os.chdir(prev_cwd)
-        raise Exception(result.stdout.decode("utf-8"))
-    if "Warning" in result.stdout.decode("utf-8"):
+    if "WARNING" in result.stdout.decode("utf-8"):
         os.chdir(prev_cwd)
         raise Exception(result.stdout.decode("utf-8"))
 
@@ -35,7 +32,7 @@ def test_pytest_in_baked_project(cookies, cookiecutter_dict):
         "pip install --disable-pip-version-check -e .", shell=True, capture_output=True
     )
     check_result(result, prev_cwd)
-    result = run("pytest", shell=True, capture_output=True)
+    result = run("pytest tests", shell=True, capture_output=True)
     check_result(result, prev_cwd)
     os.chdir(prev_cwd)
 

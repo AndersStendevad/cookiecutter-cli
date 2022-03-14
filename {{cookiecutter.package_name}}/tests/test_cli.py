@@ -6,4 +6,4 @@ def test_{{cookiecutter.package_name}}(runner):
     with runner.isolated_filesystem():
         result = runner.invoke({{cookiecutter.package_name}}, ["--version"])
         assert not result.exception
-        assert result.output == VERSION
+        assert result.output == f"{VERSION}\n"
