@@ -15,7 +15,10 @@ def check_result(result: CompletedProcess, prev_cwd: Path):
         raise Exception(result.stdout.decode("utf-8"))
     if "Failed" in result.stdout.decode("utf-8"):
         os.chdir(prev_cwd)
-        raise Warning(result.stdout.decode("utf-8"))
+        raise Exception(result.stdout.decode("utf-8"))
+    if "Warning" in result.stdout.decode("utf-8"):
+        os.chdir(prev_cwd)
+        raise Exception(result.stdout.decode("utf-8"))
 
 
 def test_bake_project(cookies, cookiecutter_dict):
