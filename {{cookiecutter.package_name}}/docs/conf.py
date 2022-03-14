@@ -30,7 +30,9 @@ release = "0.0.1"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-import sphinx_rtd_theme  # noqa: E401, E402
+
+import sphinx_rtd_theme  # noqa
+import sphinx_click  # noqa
 
 extensions = [
     "sphinx.ext.autodoc",
@@ -38,6 +40,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.doctest",
     "sphinx_rtd_theme",
+    "sphinx_click",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
