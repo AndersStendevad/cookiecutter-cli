@@ -78,3 +78,18 @@ def test_docs(cookies, cookiecutter_dict):
     result = run("tox -e docs", shell=True, capture_output=True)
     check_result(result, prev_cwd)
     os.chdir(prev_cwd)
+
+
+def test_lint(cookies, cookiecutter_dict):
+    path = cookies.bake(extra_context=cookiecutter_dict).project_path
+    prev_cwd = Path.cwd()
+    os.chdir(path)
+    result = run(
+        "pip install --disable-pip-version-check tox", shell=True, capture_output=True
+    )
+    check_result(result, prev_cwd)
+    result = run("git init --quiet && git add .", shell=True, capture_output=True)
+    check_result(result, prev_cwd)
+    result = run("tox -e lint", shell=True, capture_output=True)
+    check_result(result, prev_cwd)
+    os.chdir(prev_cwd)
