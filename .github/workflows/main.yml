@@ -13,11 +13,13 @@ jobs:
     name: tox
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
       - name: python 3.9
         uses: actions/setup-python@v2
         with:
           python-version: '3.9'
+      - name: install tox
+        run: pip install --disable-pip-version-check tox
       - name: run tox
-        run: |
-          pip install --disable-pip-version-check tox
-          tox
+        run: tox
