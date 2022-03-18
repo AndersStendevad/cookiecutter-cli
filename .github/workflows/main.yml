@@ -14,9 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-python@v2
-      - name: run tox
         with:
           python-version: '3.9'
+      - name: run tox
         run: |
           pip install --disable-pip-version-check tox
           tox
