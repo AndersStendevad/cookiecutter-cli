@@ -41,6 +41,7 @@ extensions = [
     "sphinx.ext.doctest",
     "sphinx_rtd_theme",
     "sphinx_click",
+    "myst_parser",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
