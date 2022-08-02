@@ -4,18 +4,20 @@ from pathlib import Path
 
 
 def check_result(result: CompletedProcess, prev_cwd: Path):
-    if result.stderr:
+    stderr = result.stderr.decode("utf-8")
+    stdout = result.stdout.decode("utf-8")
+    if result.stderr and "SetuptoolsDeprecationWarning" not in stderr:
         os.chdir(prev_cwd)
-        raise Exception(result.stderr.decode("utf-8"))
-    if "ERROR:" in result.stdout.decode("utf-8"):
+        raise Exception(stderr)
+    if "ERROR:" in stdout:
         os.chdir(prev_cwd)
-        raise Exception(result.stdout.decode("utf-8"))
-    if "FAILED" in result.stdout.decode("utf-8"):
+        raise Exception(stdout)
+    if "FAILED" in stdout:
         os.chdir(prev_cwd)
-        raise Exception(result.stdout.decode("utf-8"))
-    if "WARNING" in result.stdout.decode("utf-8"):
+        raise Exception(stdout)
+    if "WARNING" in stdout:
         os.chdir(prev_cwd)
-        raise Exception(result.stdout.decode("utf-8"))
+        raise Exception(stdout)
 
 
 def test_bake_project(cookies, cookiecutter_dict):
