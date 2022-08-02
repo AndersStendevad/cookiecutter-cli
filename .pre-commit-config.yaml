@@ -2,7 +2,7 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.2.0
+    rev: v4.3.0
     hooks:
     -   id: check-docstring-first
     -   id: trailing-whitespace
@@ -11,7 +11,7 @@ repos:
     -   id: check-yaml
     -   id: check-added-large-files
   - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.1.13
+    rev: v1.3.0
     hooks:
     -   id: remove-tabs
   - repo: https://github.com/asottile/blacken-docs
@@ -20,4 +20,4 @@ repos:
     -   id: blacken-docs
 
 default_language_version:
-    python: python3.9
+    python: python3.10
