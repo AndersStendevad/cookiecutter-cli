@@ -1,4 +1,6 @@
 name: CI
+permissions:
+  contents: write
 
 on:
   push:
@@ -23,3 +25,9 @@ jobs:
         run: pip install --disable-pip-version-check tox
       - name: run tox
         run: tox
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: docs/_build/html # The folder the action should deploy.
+          target-folder: docs
