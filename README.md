@@ -1,4 +1,4 @@
-# Cookiecutter-network
+# cookiecutter-cli
 
 A work in progress cookiecutter to be able to start a python project.
 
