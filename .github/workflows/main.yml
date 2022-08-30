@@ -30,4 +30,4 @@ jobs:
         with:
           branch: gh-pages
           folder: docs/_build/html # The folder the action should deploy.
-          target-folder: docs
+          target-folder: .
