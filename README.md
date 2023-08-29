@@ -1,6 +1,6 @@
 # cookiecutter-cli
 
-A work in progress cookiecutter to be able to start a python project.
+My personal cookiecutter used to start a python project.
 
 ## Install for development
 <code>pip install tox</code>

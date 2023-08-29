@@ -18,3 +18,6 @@ repos:
     rev: v1.12.1
     hooks:
     -   id: blacken-docs
+
+default_language_version:
+    python: python3.10
