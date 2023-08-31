@@ -43,7 +43,7 @@ def test_mypy(bake, helper):
 def test_bump(bake, helper):
     """check bump in baked project"""
     helper.check_result(run("git add .", shell=True, capture_output=True))
-    helper.check_result(run("git commit -m 'init commit'", shell=True, capture_output=True))
+    helper.check_result(run("git -c user.name='User Name' -c user.email='user@email.org' commit -m 'init commit'", shell=True, capture_output=True))
     helper.check_result(run("tox -e bump", shell=True, capture_output=True))
 
 
