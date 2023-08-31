@@ -1,4 +1,4 @@
-Welcome to cookiecutter-network version |release|!
+Welcome to cookiecutter-cli version |release|!
 ==================================================
 
 This is a template for Documentation in a Python project with a CLI.
