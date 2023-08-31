@@ -34,6 +34,19 @@ def test_lint(bake, helper):
     """check lint in baked project"""
     helper.check_result(run("tox -e lint", shell=True, capture_output=True))
 
+
+def test_mypy(bake, helper):
+    """check mypy in baked project"""
+    helper.check_result(run("tox -e mypy", shell=True, capture_output=True))
+
+
+def test_bump(bake, helper):
+    """check bump in baked project"""
+    helper.check_result(run("git add .", shell=True, capture_output=True))
+    helper.check_result(run("git commit -m 'init commit'", shell=True, capture_output=True))
+    helper.check_result(run("tox -e bump", shell=True, capture_output=True))
+
+
 def test_cli(bake, helper):
     """check cli in baked project"""
     helper.check_result(run("pip install -e .", shell=True, capture_output=True))
